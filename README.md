@@ -1,6 +1,6 @@
-# Arbio Reservation Prototype
+# RP Prototype
 
-A prototype for the Arbio reservation system.
+A prototype for us.
 
 ## Setup for GitHub Pages
 
