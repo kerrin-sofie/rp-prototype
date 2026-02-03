@@ -217,27 +217,121 @@ body.mode-pre-checkin .checkin-guide-btn:hover {
     color: var(--white);
 }
 
-/* Access My Apartment (Always Expanded) Specific Styles */
-.accordion-header-static {
-    width: 100%;
-    background: transparent;
-    border: none;
-    padding: 20px;
+/* Hide Things To Know section in unpaid mode */
+body.mode-unpaid #thingsToKnowSection {
+    display: none;
+}
+
+/* Lock Indicator for Unpaid Phase */
+.lock-indicator {
     display: flex;
     align-items: center;
-    gap: 16px;
-    text-align: left;
-    cursor: default;
+    gap: 6px;
+    color: #dc2626;
+    font-size: 13px;
+    font-weight: 600;
+    margin-left: auto;
+    padding: 0;
 }
 
-.accordion-item.access-item-expanded .accordion-content {
-    max-height: 1000px;
-    opacity: 1;
-    padding: 0 20px 20px 20px;
+.lock-indicator svg {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    color: #dc2626;
+    stroke-width: 2.5;
 }
 
-.accordion-item.access-item-expanded .accordion-chevron {
+.lock-text {
+    font-size: 13px;
+    letter-spacing: 0.3px;
+    color: #dc2626;
+}
+
+/* Access My Apartment - Locked State Styling */
+.accordion-item.locked-section {
+    border: 2px solid #fca5a5;
+    border-radius: 12px;
+    background-color: #fff;
+    margin: 0 -1px; /* Adjust for border width */
+    position: relative;
+}
+
+/* First locked section - top rounded corners and Payment Required label */
+#accessMyApartmentSection.locked-section {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+#accessMyApartmentSection.locked-section::before {
+    content: 'Payment Required';
+    position: absolute;
+    top: -10px;
+    right: 12px;
+    background-color: #fff;
+    color: #dc2626;
+    font-size: 10px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 4px;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+    z-index: 1;
+    border: 1px solid #fca5a5;
+}
+
+/* Visual separator between locked sections */
+#accessMyApartmentSection.locked-section .accordion-header {
+    border-bottom: 1px solid var(--border-gray);
+}
+
+/* Second locked section - bottom rounded corners, no top border, no label */
+#upgradeYourStaySection.locked-section {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-top: none;
+    margin-top: 0;
+    border-bottom: 2px solid #fca5a5;
+}
+
+#upgradeYourStaySection.locked-section::before {
     display: none;
+}
+
+/* Remove default accordion border between locked sections */
+#accessMyApartmentSection.locked-section ~ .accordion-item.locked-section {
+    border-top: none;
+}
+
+.accordion-item.locked-section .accordion-header {
+    cursor: not-allowed;
+    padding-right: 20px; /* Adjust padding when chevron is hidden */
+    background-color: transparent;
+    opacity: 0.9;
+}
+
+.accordion-item.locked-section .accordion-header:hover {
+    background-color: #fff;
+}
+
+.accordion-item.locked-section .accordion-icon {
+    color: #333;
+    opacity: 0.6;
+}
+
+.accordion-item.locked-section .accordion-text h3 {
+    color: #333;
+    font-weight: 600;
+}
+
+.accordion-item.locked-section .accordion-text p {
+    color: #666;
+}
+
+.accordion-item.locked-section .accordion-chevron {
+    display: none !important;
 }
 
 .accordion-content ul {
@@ -255,6 +349,30 @@ body.mode-pre-checkin .checkin-guide-btn:hover {
 
 .accordion-content .checkin-guide-btn {
     margin-top: 8px;
+}
+
+/* Locked State (Unpaid Phase) */
+.locked-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.locked-icon {
+    color: var(--gray);
+    margin-bottom: 16px;
+    opacity: 0.6;
+}
+
+.locked-message {
+    font-size: 15px;
+    color: var(--gray);
+    line-height: 1.5;
+    margin: 0;
+    max-width: 300px;
 }
 
 
@@ -356,6 +474,212 @@ body.mode-pre-checkin .checkin-guide-btn:hover {
 }
 
 /* No Internet Modal */
+/* Access Trouble Modal */
+.access-trouble-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1001;
+    display: none;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.access-trouble-modal.active {
+    display: flex;
+}
+
+.access-trouble-modal-content {
+    position: relative;
+    background-color: var(--white);
+    border-radius: 24px 24px 0 0;
+    padding: 32px 24px;
+    max-width: 600px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.access-trouble-modal.active .access-trouble-modal-content {
+    transform: translateY(0);
+}
+
+.access-trouble-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    padding-right: 40px;
+}
+
+.access-trouble-title {
+    font-size: 24px;
+    font-weight: 600;
+    color: #000;
+    margin: 0;
+}
+
+.backup-badge {
+    background-color: #d1fae5;
+    color: #065f46;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.access-trouble-question {
+    font-size: 15px;
+    color: #333;
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+.access-trouble-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.radio-options-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.radio-option-trouble {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    border: 1px solid var(--border-gray);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s, border-color 0.2s;
+}
+
+.radio-option-trouble:hover {
+    background-color: #fafafa;
+    border-color: var(--primary-color);
+}
+
+.radio-option-trouble input[type="radio"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    accent-color: var(--primary-color);
+}
+
+.radio-option-trouble span {
+    font-size: 14px;
+    color: #333;
+    flex: 1;
+}
+
+.backup-access-info {
+    background-color: #d1fae5;
+    border: 1px solid #6ee7b7;
+    border-radius: 8px;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+.backup-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.backup-icon svg {
+    color: var(--white);
+    stroke-width: 3;
+}
+
+.backup-message {
+    font-size: 14px;
+    color: #333;
+    margin: 0;
+    line-height: 1.5;
+}
+
+.troubleshooting-guide-section {
+    margin-top: 0;
+    margin-bottom: 24px;
+    padding: 16px;
+    background-color: #f8f9fa;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.troubleshooting-guide-modal-link {
+    color: var(--navy);
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 600;
+    transition: all 0.2s;
+    display: inline-block;
+    position: relative;
+    padding-right: 20px;
+    white-space: nowrap;
+}
+
+.troubleshooting-guide-modal-link::after {
+    content: '→';
+    position: absolute;
+    right: 0;
+    transition: transform 0.2s;
+}
+
+.troubleshooting-guide-modal-link:hover {
+    color: #1e3a5f;
+    text-decoration: underline;
+}
+
+.troubleshooting-guide-modal-link:hover::after {
+    transform: translateX(4px);
+}
+
+.get-backup-access-btn {
+    width: 100%;
+    padding: 16px;
+    background-color: #666;
+    color: var(--white);
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+    margin-top: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.get-backup-access-btn:hover {
+    background-color: #555;
+    transform: translateY(-1px);
+}
+
+.get-backup-access-btn:active {
+    transform: translateY(0);
+    background-color: #444;
+}
+
 .no-internet-modal {
     position: fixed;
     top: 0;
@@ -698,6 +1022,11 @@ body.mode-pre-checkin .checkin-guide-btn:hover {
     letter-spacing: 0.5px;
 }
 
+.payment-badge.unpaid-badge {
+    background-color: #fee2e2;
+    color: #dc2626;
+}
+
 .book-again-btn {
     width: 100%;
     background-color: transparent;
@@ -717,14 +1046,306 @@ body.mode-pre-checkin .checkin-guide-btn:hover {
 }
 
 /* Payment Breakdown */
-.payment-breakdown {
+.payment-status-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     padding: 12px 0;
+    margin-bottom: 12px;
+}
+
+/* Reduce spacing between consecutive payment status rows */
+#paymentStatusInPaymentSection {
+    margin-bottom: 4px;
+}
+
+.payment-status-label {
+    font-size: 14px;
+    color: var(--gray);
+}
+
+/* Unpaid Reservation Alert */
+.unpaid-reservation-alert {
+    background-color: #fef2f2;
+    border: 1px solid #fecaca;
+    border-radius: 12px;
+    padding: 20px 16px 20px 20px;
+    margin-bottom: 20px;
+}
+
+.unpaid-alert-description {
+    font-size: 14px;
+    color: #7f1d1d;
+    line-height: 1.5;
+    margin: 0 0 16px 0;
+}
+
+/* Payment Error Reason */
+.payment-error-reason {
+    background-color: #fee2e2;
+    border-left: 3px solid #dc2626;
+    padding: 12px 12px 12px 16px;
+    margin: 16px 0;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.payment-error-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #7f1d1d;
+    display: block;
+}
+
+.payment-error-text {
+    font-size: 14px;
+    color: #991b1b;
+    font-weight: 500;
+    display: block;
+    word-wrap: break-word;
+}
+
+.unpaid-alert-warning {
+    font-size: 14px;
+    color: #7f1d1d;
+    line-height: 1.5;
+    margin: 16px 0 20px 0;
+    text-align: left;
+    font-weight: 400;
+}
+
+.unpaid-alert-warning strong {
+    color: #991b1b;
+    font-weight: 700;
+}
+
+.pay-now-btn {
+    width: 100%;
+    background-color: var(--navy);
+    color: var(--white);
+    border: none;
+    padding: 16px 24px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+    text-align: center;
+}
+
+.pay-now-btn:hover {
+    background-color: #0d122f;
+    transform: translateY(-1px);
+}
+
+.pay-now-btn:active {
+    transform: translateY(0);
+    background-color: #050812;
+}
+
+/* Invoice Details Button */
+.invoice-details-btn {
+    width: 100%;
+    background-color: transparent;
+    color: var(--navy);
+    border: 2px solid var(--navy);
+    padding: 16px 32px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.invoice-details-btn:hover {
+    background-color: var(--navy);
+    color: var(--white);
+}
+
+.invoice-details-btn:active {
+    opacity: 0.9;
+}
+
+/* Invoice Disclaimer */
+.invoice-disclaimer {
+    font-size: 13px;
+    color: var(--gray);
+    line-height: 1.5;
+    margin-top: 12px;
+    margin-bottom: 0;
+    padding: 0;
+    text-align: left;
+}
+
+/* Request Invoice Button */
+.request-invoice-btn {
+    width: 100%;
+    background-color: var(--navy);
+    color: var(--white);
+    border: none;
+    padding: 16px 24px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.request-invoice-btn:hover {
+    background-color: #0d122f;
+    transform: translateY(-1px);
+}
+
+.request-invoice-btn:active {
+    transform: translateY(0);
+    background-color: #050812;
+}
+
+/* Request Invoice Disclaimer */
+.request-invoice-disclaimer {
+    font-size: 13px;
+    color: var(--gray);
+    line-height: 1.5;
+    margin-top: 12px;
+    margin-bottom: 0;
+    padding: 0;
+    text-align: left;
+}
+
+/* Discount Code Section */
+.discount-code-section {
+    margin-top: 16px;
+    margin-bottom: 0;
+    border: none;
+    border-radius: 0;
+    overflow: visible;
+    background-color: transparent;
+}
+
+.discount-code-header {
+    width: 100%;
+    background-color: transparent;
+    border: none;
+    padding: 8px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    transition: opacity 0.2s;
+    font-size: 14px;
+    font-weight: 400;
+    color: #991b1b;
+    text-align: left;
+    opacity: 0.8;
+}
+
+.discount-code-header:hover {
+    opacity: 0.8;
+}
+
+.discount-chevron {
+    transition: transform 0.3s ease;
+    color: var(--gray);
+}
+
+.discount-code-content {
+    display: none;
+    padding: 0;
+    margin-top: 12px;
+}
+
+.discount-input-group {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.coupon-input {
+    flex: 1;
+    padding: 12px 16px;
+    border: 1px solid var(--border-gray);
+    border-radius: 8px;
+    font-size: 15px;
+    transition: border-color 0.2s;
+}
+
+.coupon-input:focus {
+    outline: none;
+    border-color: var(--navy);
+}
+
+.coupon-input:disabled {
+    background-color: #f5f5f5;
+    cursor: not-allowed;
+}
+
+.coupon-add-btn {
+    padding: 12px 24px;
+    background-color: #666;
+    color: var(--white);
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    white-space: nowrap;
+}
+
+.coupon-add-btn:hover:not(:disabled) {
+    background-color: #555;
+}
+
+.coupon-add-btn:disabled {
+    background-color: #22c55e;
+    cursor: not-allowed;
+}
+
+.payment-breakdown {
+    padding: 20px 0;
+}
+
+/* Ensure price breakdown is visible when Payment Details is expanded in during-stay mode */
+body.mode-during-stay #paymentDetailsSection.active #paymentBreakdownDuringStay {
+    display: block !important;
 }
 
 .payment-row {
     display: flex;
     justify-content: space-between;
-    padding: 10px 0;
+    align-items: center;
+    padding: 12px 0;
+    font-size: 15px;
+    color: #333;
+    transition: color 0.2s;
+}
+
+.payment-row:not(:last-child):not(.outstanding):not(#totalPaidRow):not(.security-hold-row) {
+    border-bottom: 1px solid #f0f0f0;
+    padding-bottom: 14px;
+    margin-bottom: 2px;
+}
+
+#totalPaidRow {
+    border-bottom: none;
+    padding-bottom: 12px;
+}
+
+.payment-row span:first-child {
+    font-weight: 500;
+    color: #666;
+    letter-spacing: 0.2px;
+}
+
+.payment-row span:last-child {
+    font-weight: 600;
+    color: #000;
     font-size: 15px;
 }
 
@@ -734,6 +1355,149 @@ body.mode-pre-checkin .checkin-guide-btn:hover {
     padding-top: 16px;
     font-weight: 600;
     font-size: 17px;
+    border-bottom: none;
+}
+
+.payment-row.total span:first-child {
+    font-weight: 700;
+    color: #000;
+    font-size: 17px;
+}
+
+.payment-row.total span:last-child {
+    font-weight: 700;
+    color: #000;
+    font-size: 17px;
+}
+
+.payment-row.outstanding {
+    padding: 20px 0 8px 0;
+    margin-top: 12px;
+    border-top: 2px solid #e5e5e5;
+    border-bottom: none;
+}
+
+.payment-row.outstanding span:first-child {
+    font-weight: 700;
+    color: #000;
+    font-size: 16px;
+    letter-spacing: 0.3px;
+}
+
+.payment-row.outstanding span:last-child {
+    font-weight: 700;
+    color: #000;
+    font-size: 18px;
+    letter-spacing: 0.5px;
+}
+
+/* Security Hold Row */
+.payment-row.security-hold-row {
+    position: relative;
+    padding-bottom: 12px;
+    padding-top: 12px;
+    flex-wrap: nowrap;
+}
+
+.payment-row.security-hold-row .security-hold-left {
+    min-width: 0;
+    flex: 0 1 auto;
+}
+
+.security-hold-left {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.security-hold-left > span:first-child {
+    font-weight: 500;
+    color: #666;
+    font-size: 15px;
+}
+
+.security-hold-info-icon {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: transparent;
+    color: #000;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 0;
+    flex-shrink: 0;
+    transition: opacity 0.2s;
+}
+
+.security-hold-info-icon:hover {
+    opacity: 0.7;
+}
+
+.security-hold-info-icon svg {
+    width: 14px;
+    height: 14px;
+    stroke: #000;
+}
+
+.security-hold-badge {
+    background-color: var(--success-bg) !important;
+    color: var(--success-text) !important;
+    padding: 4px 12px !important;
+    border-radius: 12px !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.5px !important;
+    text-transform: none !important;
+}
+
+/* Security Hold Popover */
+.security-hold-popover {
+    position: fixed;
+    background-color: var(--white);
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    z-index: 10000;
+    min-width: 280px;
+    max-width: 320px;
+    display: none;
+}
+
+.security-hold-popover.visible {
+    display: block !important;
+}
+
+.popover-content {
+    padding: 16px;
+}
+
+.popover-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #000;
+    margin: 0 0 8px 0;
+}
+
+.popover-text {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.popover-arrow {
+    position: absolute;
+    bottom: -6px;
+    left: 28px;
+    width: 12px;
+    height: 12px;
+    background-color: var(--white);
+    transform: rotate(45deg);
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 /* Info Sections */
@@ -1288,9 +2052,40 @@ body.mode-pre-checkin .checkin-guide-btn:hover {
     color: #000;
 }
 
-.continue-btn {
+.step-navigation {
+    display: flex;
+    gap: 12px;
     width: 100%;
     max-width: 500px;
+    margin-bottom: 16px;
+}
+
+.back-btn {
+    flex: 0 0 auto;
+    background-color: transparent;
+    color: var(--navy);
+    border: 2px solid var(--navy);
+    padding: 16px 24px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+}
+
+.back-btn:hover {
+    background-color: var(--navy);
+    color: var(--white);
+    transform: translateY(-1px);
+}
+
+.back-btn:active {
+    transform: translateY(0);
+}
+
+.continue-btn {
+    flex: 1;
     background-color: var(--navy);
     color: var(--white);
     border: none;
@@ -1299,7 +2094,6 @@ body.mode-pre-checkin .checkin-guide-btn:hover {
     font-size: 16px;
     font-weight: 600;
     cursor: pointer;
-    margin-bottom: 16px;
     transition: transform 0.2s;
 }
 
@@ -1309,6 +2103,22 @@ body.mode-pre-checkin .checkin-guide-btn:hover {
 
 .continue-btn:active {
     transform: translateY(0);
+}
+
+.troubleshooting-guide-link {
+    color: #666;
+    text-decoration: none;
+    font-size: 14px;
+    margin: 12px 0 20px 0;
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+    transition: color 0.2s;
+}
+
+.troubleshooting-guide-link:hover {
+    color: #333;
+    text-decoration: underline;
 }
 
 .help-link {

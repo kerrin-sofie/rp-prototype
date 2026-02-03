@@ -1,0 +1,13 @@
+═══════════════════════════════════════════════════════════════
+  QUICK DEPLOYMENT COMMANDS
+  Copy and paste these commands into your terminal:
+═══════════════════════════════════════════════════════════════
+
+cd /Users/kerrinspintig/Desktop/Arbio-cursor/rp-new && rm -rf .git && git init && git remote add origin https://github.com/kerrin-sofie/rp-prototype.git && git add . && git commit -m "Update: Latest version - $(date '+%Y-%m-%d %H:%M:%S')" && git branch -M main && git push -u origin main --force
+
+═══════════════════════════════════════════════════════════════
+  After running, your site will be available at:
+  https://kerrin-sofie.github.io/rp-prototype/
+  
+  (May take 1-2 minutes for GitHub Pages to update)
+═══════════════════════════════════════════════════════════════

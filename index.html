@@ -62,9 +62,160 @@
 
         <!-- Accordion Sections -->
         <section class="accordion-container">
-            <!-- Access My Apartment (Always Expanded) -->
-            <div class="accordion-item access-item-expanded">
-                <div class="accordion-header-static">
+            <!-- Payment Details -->
+            <div class="accordion-item" id="paymentDetailsSection">
+                <button class="accordion-header" aria-expanded="false" data-section="payment">
+                    <div class="accordion-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="1" y="4" width="22" height="16" rx="2" ry="2"/>
+                            <line x1="1" y1="10" x2="23" y2="10"/>
+                        </svg>
+                    </div>
+                    <div class="accordion-text">
+                        <h3>Payment Details</h3>
+                        <p>Your total cost for your trip</p>
+                    </div>
+                    <svg class="accordion-chevron" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="6 9 12 15 18 9"/>
+                    </svg>
+                </button>
+                <div class="accordion-content">
+                    <!-- Payment Status (shown only in unpaid phase) -->
+                    <div class="payment-status-row" id="paymentStatusInPaymentSection" style="display: none;">
+                        <span class="payment-status-label">Payment status:</span>
+                        <span class="payment-badge" id="paymentStatusBadgeInPayment">PAID</span>
+                    </div>
+                    
+                    <div class="payment-status-row" id="totalPriceRow" style="display: none;">
+                        <span class="payment-status-label">Total price:</span>
+                        <span id="totalPriceValue">83€</span>
+                    </div>
+                    
+                    <!-- Unpaid Reservation Alert (shown only in unpaid phase) -->
+                    <div class="unpaid-reservation-alert" id="unpaidReservationAlert" style="display: none;">
+                        <p class="unpaid-alert-description">Your payment on booking.com was unsuccessful. Booking.com may not have shown you this error. If you want to verify please check with your payment provider.</p>
+                        
+                        <!-- Payment Error Reason -->
+                        <div class="payment-error-reason" id="paymentErrorReason">
+                            <span class="payment-error-label">Payment Error:</span>
+                            <span class="payment-error-text" id="paymentErrorText">Card declined due to insufficient funds</span>
+                        </div>
+                        
+                        <p class="unpaid-alert-warning"><strong>Important:</strong> Complete payment below to secure your reservation, or it will be cancelled.</p>
+                        
+                        <button class="pay-now-btn" id="payNowBtn">
+                            Pay <span id="outstandingAmount">83€</span> now
+                        </button>
+                        
+                        <!-- Apply Discount Code Section (inside alert box) -->
+                        <div class="discount-code-section" id="discountCodeSection">
+                            <button class="discount-code-header" id="discountCodeHeader" aria-expanded="false">
+                                <span>Apply discount code</span>
+                                <svg class="discount-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="6 9 12 15 18 9"/>
+                                </svg>
+                            </button>
+                            <div class="discount-code-content" id="discountCodeContent">
+                                <div class="discount-input-group">
+                                    <input 
+                                        type="text" 
+                                        id="couponInput" 
+                                        class="coupon-input" 
+                                        placeholder="Add coupon"
+                                    >
+                                    <button class="coupon-add-btn" id="couponAddBtn">Add</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Price Breakdown (shown only in pre-checkin phase) -->
+                    <div class="payment-breakdown" id="paymentBreakdownPreCheckin" style="display: none;" data-phase="pre-checkin">
+                        <div class="payment-row">
+                            <span>7 nights</span>
+                            <span>€840.00</span>
+                        </div>
+                        <div class="payment-row">
+                            <span>Cleaning fee</span>
+                            <span>€35.00</span>
+                        </div>
+                        <div class="payment-row">
+                            <span>Service fee</span>
+                            <span>€52.50</span>
+                        </div>
+                        <div class="payment-row total">
+                            <span>Total</span>
+                            <span>€927.50</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Price Breakdown (shown only in during-stay phase) -->
+                    <div class="payment-breakdown" id="paymentBreakdownDuringStay" style="display: none;" data-phase="during-stay">
+                        <div class="payment-row">
+                            <span>7 nights</span>
+                            <span>€840.00</span>
+                        </div>
+                        <div class="payment-row">
+                            <span>Cleaning fee</span>
+                            <span>€35.00</span>
+                        </div>
+                        <div class="payment-row">
+                            <span>Service fee</span>
+                            <span>€52.50</span>
+                        </div>
+                        <div class="payment-row security-hold-row">
+                            <div class="security-hold-left">
+                                <span>Security Hold:</span>
+                                <button class="security-hold-info-icon" id="securityHoldInfoIcon" aria-label="Security Hold information">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="10"/>
+                                        <line x1="12" y1="16" x2="12" y2="12"/>
+                                        <circle cx="12" cy="8" r="1.5" fill="currentColor"/>
+                                    </svg>
+                                </button>
+                                <span class="security-hold-badge">Hold Success</span>
+                            </div>
+                            <span>€250.00</span>
+                        </div>
+                        <!-- Security Hold Popover -->
+                        <div class="security-hold-popover" id="securityHoldPopover">
+                            <div class="popover-content">
+                                <h4 class="popover-title">Security Hold</h4>
+                                <p class="popover-text">This is a temporary hold, not a charge. We'll release it after checkout. Most banks complete release in 2–7 business days.</p>
+                            </div>
+                            <div class="popover-arrow"></div>
+                        </div>
+                        <div class="payment-row total">
+                            <span>Total</span>
+                            <span>€927.50</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Invoice Details Button (shown in pre-checkin and during-stay phases) -->
+                    <button class="invoice-details-btn" id="invoiceDetailsBtn" style="display: none;">
+                        Check Invoice Details
+                    </button>
+                    
+                    <!-- Invoice Disclaimer (shown in pre-checkin and during-stay phases) -->
+                    <p class="invoice-disclaimer" id="invoiceDisclaimer" style="display: none;">
+                        Please note that invoice issuance is only available on the day of check-out. Invoice details can only be changed before the check-out day. Any other edits cannot be taken into account later.
+                    </p>
+                    
+                    <!-- Request Invoice Button (shown in post-checkout phase) -->
+                    <button class="request-invoice-btn" id="requestInvoiceBtn" style="display: none;">
+                        Request Invoice
+                    </button>
+                    
+                    <!-- Request Invoice Disclaimer (shown in post-checkout phase) -->
+                    <p class="request-invoice-disclaimer" id="requestInvoiceDisclaimer" style="display: none;">
+                        Please note that any changes to invoice details cannot be taken into account at this point in time.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Access My Apartment -->
+            <div class="accordion-item" id="accessMyApartmentSection">
+                <button class="accordion-header" aria-expanded="false" data-section="access">
                     <div class="accordion-icon">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
@@ -73,10 +224,23 @@
                     </div>
                     <div class="accordion-text">
                         <h3>Access My Apartment</h3>
-                        <p>Everything you need to know about check-in.</p>
+                        <p id="accessDescription">Everything you need to know about check-in.</p>
                     </div>
-                </div>
+                </button>
                 <div class="accordion-content">
+                    <!-- Unpaid Phase Content (Locked State) -->
+                    <div class="access-content-unpaid" id="accessContentUnpaid" style="display: none;">
+                        <div class="locked-state">
+                            <div class="locked-icon">
+                                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                                    <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                                </svg>
+                            </div>
+                            <p class="locked-message">Access to your apartment is locked until payment is completed.</p>
+                        </div>
+                    </div>
+                    
                     <!-- Pre Check-in Content (with bullet points) -->
                     <div class="access-content-pre-checkin" id="accessContentPreCheckin">
                         <ul>
@@ -180,7 +344,7 @@
             </div>
 
             <!-- Upgrade Your Stay -->
-            <div class="accordion-item">
+            <div class="accordion-item" id="upgradeYourStaySection">
                 <button class="accordion-header" aria-expanded="false" data-section="upgrade">
                     <div class="accordion-icon">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -202,7 +366,7 @@
             </div>
 
             <!-- Things To Know -->
-            <div class="accordion-item">
+            <div class="accordion-item" id="thingsToKnowSection">
                 <button class="accordion-header" aria-expanded="false" data-section="things">
                     <div class="accordion-icon">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -233,7 +397,7 @@
             </div>
 
             <!-- Reservation Details -->
-            <div class="accordion-item">
+            <div class="accordion-item" id="reservationDetailsSection">
                 <button class="accordion-header" aria-expanded="false" data-section="reservation">
                     <div class="accordion-icon">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -272,50 +436,11 @@
                             <span class="detail-label">Reservation ID</span>
                             <span class="detail-value">rsv-57cf7e558762</span>
                         </div>
-                        <div class="detail-row">
+                        <div class="detail-row" id="paymentStatusInReservationDetails">
                             <span class="detail-label">Payment status</span>
-                            <span class="payment-badge">PAID</span>
+                            <span class="payment-badge" id="paymentStatusBadge">PAID</span>
                         </div>
                         <button class="book-again-btn">Book again</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Payment Details -->
-            <div class="accordion-item">
-                <button class="accordion-header" aria-expanded="false" data-section="payment">
-                    <div class="accordion-icon">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <rect x="1" y="4" width="22" height="16" rx="2" ry="2"/>
-                            <line x1="1" y1="10" x2="23" y2="10"/>
-                        </svg>
-                    </div>
-                    <div class="accordion-text">
-                        <h3>Payment Details</h3>
-                        <p>Your total cost for your trip</p>
-                    </div>
-                    <svg class="accordion-chevron" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <polyline points="6 9 12 15 18 9"/>
-                    </svg>
-                </button>
-                <div class="accordion-content">
-                    <div class="payment-breakdown">
-                        <div class="payment-row">
-                            <span>7 nights</span>
-                            <span>€840.00</span>
-                        </div>
-                        <div class="payment-row">
-                            <span>Cleaning fee</span>
-                            <span>€35.00</span>
-                        </div>
-                        <div class="payment-row">
-                            <span>Service fee</span>
-                            <span>€52.50</span>
-                        </div>
-                        <div class="payment-row total">
-                            <span>Total</span>
-                            <span>€927.50</span>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -384,6 +509,7 @@
             </svg>
         </button>
         <div class="mode-options" id="modeOptions">
+            <button class="mode-option" data-mode="unpaid">Unpaid</button>
             <button class="mode-option" data-mode="pre-checkin">Pre Check-in</button>
             <button class="mode-option active" data-mode="during-stay">During Stay</button>
             <button class="mode-option" data-mode="post-checkout">Post Check-out</button>
@@ -519,15 +645,81 @@
                     <span class="code-char">2</span>
                     <span class="code-char">3</span>
                 </div>
+                
+                <!-- Troubleshooting Guide Link (shown only in during-stay phase for step 1) -->
+                <a href="#" class="troubleshooting-guide-link" id="troubleshootingGuideLink" style="display: none;">View troubleshooting guide</a>
             </div>
 
-            <button class="continue-btn" id="continueBtn">Continue</button>
+            <div class="step-navigation">
+                <button class="back-btn" id="backBtn" style="display: none;">Back</button>
+                <button class="continue-btn" id="continueBtn">Continue</button>
+            </div>
             <a href="#" class="help-link">Didn't work? Get help</a>
         </div>
 
         <footer class="overlay-footer">
             <div class="brand">Arbio</div>
         </footer>
+    </div>
+
+    <!-- Access Trouble Modal -->
+    <div class="access-trouble-modal" id="accessTroubleModal">
+        <div class="modal-overlay"></div>
+        <div class="access-trouble-modal-content">
+            <div class="modal-drag-handle"></div>
+            <button class="modal-close-btn" id="closeAccessTroubleModal" aria-label="Close">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"/>
+                    <line x1="6" y1="6" x2="18" y2="18"/>
+                </svg>
+            </button>
+            
+            <div class="access-trouble-header">
+                <h2 class="access-trouble-title">Access Trouble</h2>
+                <span class="backup-badge">BACKUP AVAILABLE</span>
+            </div>
+            
+            <div class="troubleshooting-guide-section">
+                <a href="https://help.arbio.com/troubleshooting-guide" class="troubleshooting-guide-modal-link" id="troubleshootingGuideModalLink" target="_blank" rel="noopener noreferrer">View troubleshooting guide for the lock</a>
+            </div>
+            
+            <p class="access-trouble-question">What was the reason you couldn't access the apartment?</p>
+            
+            <form class="access-trouble-form" id="accessTroubleForm">
+                <div class="radio-options-group">
+                    <label class="radio-option-trouble">
+                        <input type="radio" name="accessIssue" value="missing-unlock-button">
+                        <span>Missing "Unlock" button</span>
+                    </label>
+                    
+                    <label class="radio-option-trouble">
+                        <input type="radio" name="accessIssue" value="no-reaction-bell">
+                        <span>No reaction once ringing the bell</span>
+                    </label>
+                    
+                    <label class="radio-option-trouble">
+                        <input type="radio" name="accessIssue" value="unclear-bell-location">
+                        <span>Unclear ring bell location</span>
+                    </label>
+                    
+                    <label class="radio-option-trouble">
+                        <input type="radio" name="accessIssue" value="other">
+                        <span>Other</span>
+                    </label>
+                </div>
+                
+                <div class="backup-access-info">
+                    <div class="backup-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="20 6 9 17 4 12"/>
+                        </svg>
+                    </div>
+                    <p class="backup-message">Good news — backup access is available</p>
+                </div>
+                
+                <button type="submit" class="get-backup-access-btn" id="getBackupAccessBtn">Get Backup Access</button>
+            </form>
+        </div>
     </div>
 
     <!-- No Internet Modal -->
