@@ -61,56 +61,54 @@ function initAccordion() {
             if (accordionItem.id === 'paymentDetailsSection') {
                 const invoiceDetailsBtn = document.getElementById('invoiceDetailsBtn');
                 const invoiceDisclaimer = document.getElementById('invoiceDisclaimer');
+                const isExpanded = accordionItem.classList.contains('active');
                 
                 if (currentMode === 'during-stay') {
                     const paymentBreakdown = document.getElementById('paymentBreakdownDuringStay');
                     if (paymentBreakdown) {
-                        if (accordionItem.classList.contains('active')) {
-                            paymentBreakdown.style.display = 'block';
-                        } else {
-                            paymentBreakdown.style.display = 'none';
+                        // Show payment breakdown when section is expanded in during-stay phase
+                        paymentBreakdown.style.display = isExpanded ? 'block' : 'none';
+                    }
+                    // Invoice button and disclaimer should always be visible in during-stay phase when expanded
+                    if (isExpanded) {
+                        if (invoiceDetailsBtn) {
+                            invoiceDetailsBtn.style.display = 'block';
                         }
-                    }
-                    // Invoice button and disclaimer should always be visible in during-stay phase
-                    if (invoiceDetailsBtn) {
-                        invoiceDetailsBtn.style.display = 'block';
-                    }
-                    if (invoiceDisclaimer) {
-                        invoiceDisclaimer.style.display = 'block';
+                        if (invoiceDisclaimer) {
+                            invoiceDisclaimer.style.display = 'block';
+                        }
                     }
                 } else if (currentMode === 'pre-checkin') {
                     const paymentBreakdown = document.getElementById('paymentBreakdownPreCheckin');
                     if (paymentBreakdown) {
-                        if (accordionItem.classList.contains('active')) {
-                            paymentBreakdown.style.display = 'block';
-                        } else {
-                            paymentBreakdown.style.display = 'none';
+                        // Show payment breakdown when section is expanded in pre-checkin phase
+                        paymentBreakdown.style.display = isExpanded ? 'block' : 'none';
+                    }
+                    // Invoice button and disclaimer should always be visible in pre-checkin phase when expanded
+                    if (isExpanded) {
+                        if (invoiceDetailsBtn) {
+                            invoiceDetailsBtn.style.display = 'block';
                         }
-                    }
-                    // Invoice button and disclaimer should always be visible in pre-checkin phase
-                    if (invoiceDetailsBtn) {
-                        invoiceDetailsBtn.style.display = 'block';
-                    }
-                    if (invoiceDisclaimer) {
-                        invoiceDisclaimer.style.display = 'block';
+                        if (invoiceDisclaimer) {
+                            invoiceDisclaimer.style.display = 'block';
+                        }
                     }
                 } else if (currentMode === 'post-checkout') {
                     const paymentBreakdown = document.getElementById('paymentBreakdownDuringStay');
                     const requestInvoiceBtn = document.getElementById('requestInvoiceBtn');
                     const requestInvoiceDisclaimer = document.getElementById('requestInvoiceDisclaimer');
                     if (paymentBreakdown) {
-                        if (accordionItem.classList.contains('active')) {
-                            paymentBreakdown.style.display = 'block';
-                        } else {
-                            paymentBreakdown.style.display = 'none';
+                        // Show payment breakdown when section is expanded in post-checkout phase
+                        paymentBreakdown.style.display = isExpanded ? 'block' : 'none';
+                    }
+                    // Request invoice button and disclaimer should always be visible in post-checkout phase when expanded
+                    if (isExpanded) {
+                        if (requestInvoiceBtn) {
+                            requestInvoiceBtn.style.display = 'block';
                         }
-                    }
-                    // Request invoice button and disclaimer should always be visible in post-checkout phase
-                    if (requestInvoiceBtn) {
-                        requestInvoiceBtn.style.display = 'block';
-                    }
-                    if (requestInvoiceDisclaimer) {
-                        requestInvoiceDisclaimer.style.display = 'block';
+                        if (requestInvoiceDisclaimer) {
+                            requestInvoiceDisclaimer.style.display = 'block';
+                        }
                     }
                 }
             }
@@ -766,14 +764,10 @@ function initModeSelector() {
             if (requestInvoiceBtn) requestInvoiceBtn.style.display = 'none';
             if (requestInvoiceDisclaimer) requestInvoiceDisclaimer.style.display = 'none';
         } else if (mode === 'during-stay') {
-            // Show price breakdown in during-stay phase (will be visible when section is expanded)
+            const isExpanded = paymentSection.classList.contains('active');
+            // Show price breakdown in during-stay phase when section is expanded
             if (paymentBreakdownDuringStay) {
-                // Only show if section is active, otherwise CSS will handle it when expanded
-                if (paymentSection.classList.contains('active')) {
-                    paymentBreakdownDuringStay.style.display = 'block';
-                } else {
-                    paymentBreakdownDuringStay.style.display = 'none';
-                }
+                paymentBreakdownDuringStay.style.display = isExpanded ? 'block' : 'none';
             }
             // Hide pre-checkin breakdown in during-stay phase
             if (paymentBreakdownPreCheckin) paymentBreakdownPreCheckin.style.display = 'none';
@@ -782,9 +776,9 @@ function initModeSelector() {
             if (securityHoldBadge) {
                 securityHoldBadge.textContent = 'Hold Success';
             }
-            // Show invoice details button and disclaimer in during-stay phase
-            if (invoiceDetailsBtn) invoiceDetailsBtn.style.display = 'block';
-            if (invoiceDisclaimer) invoiceDisclaimer.style.display = 'block';
+            // Show invoice details button and disclaimer in during-stay phase only when expanded
+            if (invoiceDetailsBtn) invoiceDetailsBtn.style.display = isExpanded ? 'block' : 'none';
+            if (invoiceDisclaimer) invoiceDisclaimer.style.display = isExpanded ? 'block' : 'none';
             // Hide request invoice button and disclaimer in during-stay phase
             if (requestInvoiceBtn) requestInvoiceBtn.style.display = 'none';
             if (requestInvoiceDisclaimer) requestInvoiceDisclaimer.style.display = 'none';
@@ -799,20 +793,16 @@ function initModeSelector() {
             // Ensure section starts collapsed
             paymentSection.classList.remove('active');
         } else if (mode === 'pre-checkin') {
-            // Show invoice details button and disclaimer in pre-checkin phase
-            if (invoiceDetailsBtn) invoiceDetailsBtn.style.display = 'block';
-            if (invoiceDisclaimer) invoiceDisclaimer.style.display = 'block';
+            const isExpanded = paymentSection.classList.contains('active');
+            // Show invoice details button and disclaimer in pre-checkin phase only when expanded
+            if (invoiceDetailsBtn) invoiceDetailsBtn.style.display = isExpanded ? 'block' : 'none';
+            if (invoiceDisclaimer) invoiceDisclaimer.style.display = isExpanded ? 'block' : 'none';
             // Hide request invoice button and disclaimer in pre-checkin phase
             if (requestInvoiceBtn) requestInvoiceBtn.style.display = 'none';
             if (requestInvoiceDisclaimer) requestInvoiceDisclaimer.style.display = 'none';
-            // Show price breakdown in pre-checkin phase (will be visible when section is expanded)
+            // Show price breakdown in pre-checkin phase when section is expanded
             if (paymentBreakdownPreCheckin) {
-                // Only show if section is active, otherwise CSS will handle it when expanded
-                if (paymentSection.classList.contains('active')) {
-                    paymentBreakdownPreCheckin.style.display = 'block';
-                } else {
-                    paymentBreakdownPreCheckin.style.display = 'none';
-                }
+                paymentBreakdownPreCheckin.style.display = isExpanded ? 'block' : 'none';
             }
             // Hide during-stay breakdown in pre-checkin phase
             if (paymentBreakdownDuringStay) paymentBreakdownDuringStay.style.display = 'none';
