@@ -519,6 +519,24 @@ function initModeSelector() {
                 upgradeHeader.style.pointerEvents = '';
                 upgradeHeader.style.cursor = '';
             }
+            // Show during-stay upgrade content and hide pre-checkin content
+            const upgradeServicesPreCheckin = document.getElementById('upgradeServicesListPreCheckin');
+            const upgradeServicesDuringStay = document.getElementById('upgradeServicesList');
+            const upgradeParkingPreCheckin = document.getElementById('upgradeParkingDisclaimerPreCheckin');
+            const upgradeParkingDuringStay = document.getElementById('upgradeParkingDisclaimer');
+            const upgradeDiscountPreCheckin = document.getElementById('upgradeDiscountSectionPreCheckin');
+            const upgradeDiscountDuringStay = document.getElementById('upgradeDiscountSection');
+            const upgradeBookNowPreCheckin = document.getElementById('upgradeBookNowBtnPreCheckin');
+            const upgradeBookNowDuringStay = document.getElementById('upgradeBookNowBtn');
+            
+            if (upgradeServicesPreCheckin) upgradeServicesPreCheckin.style.display = 'none';
+            if (upgradeServicesDuringStay) upgradeServicesDuringStay.style.display = 'block';
+            if (upgradeParkingPreCheckin) upgradeParkingPreCheckin.style.display = 'none';
+            if (upgradeParkingDuringStay) upgradeParkingDuringStay.style.display = 'block';
+            if (upgradeDiscountPreCheckin) upgradeDiscountPreCheckin.style.display = 'none';
+            if (upgradeDiscountDuringStay) upgradeDiscountDuringStay.style.display = 'block';
+            if (upgradeBookNowPreCheckin) upgradeBookNowPreCheckin.style.display = 'none';
+            if (upgradeBookNowDuringStay) upgradeBookNowDuringStay.style.display = 'block';
             // Use the "during stay" text
             noInternetLink.textContent = noInternetLink.getAttribute('data-text-during-stay');
             // Update button label for during-stay phase
@@ -577,6 +595,24 @@ function initModeSelector() {
                 upgradeHeader.style.cursor = 'pointer';
                 upgradeHeader.removeAttribute('disabled');
             }
+            // Show pre-checkin upgrade content and hide during-stay content
+            const upgradeServicesPreCheckin = document.getElementById('upgradeServicesListPreCheckin');
+            const upgradeServicesDuringStay = document.getElementById('upgradeServicesList');
+            const upgradeParkingPreCheckin = document.getElementById('upgradeParkingDisclaimerPreCheckin');
+            const upgradeParkingDuringStay = document.getElementById('upgradeParkingDisclaimer');
+            const upgradeDiscountPreCheckin = document.getElementById('upgradeDiscountSectionPreCheckin');
+            const upgradeDiscountDuringStay = document.getElementById('upgradeDiscountSection');
+            const upgradeBookNowPreCheckin = document.getElementById('upgradeBookNowBtnPreCheckin');
+            const upgradeBookNowDuringStay = document.getElementById('upgradeBookNowBtn');
+            
+            if (upgradeServicesPreCheckin) upgradeServicesPreCheckin.style.display = 'block';
+            if (upgradeServicesDuringStay) upgradeServicesDuringStay.style.display = 'none';
+            if (upgradeParkingPreCheckin) upgradeParkingPreCheckin.style.display = 'block';
+            if (upgradeParkingDuringStay) upgradeParkingDuringStay.style.display = 'none';
+            if (upgradeDiscountPreCheckin) upgradeDiscountPreCheckin.style.display = 'block';
+            if (upgradeDiscountDuringStay) upgradeDiscountDuringStay.style.display = 'none';
+            if (upgradeBookNowPreCheckin) upgradeBookNowPreCheckin.style.display = 'block';
+            if (upgradeBookNowDuringStay) upgradeBookNowDuringStay.style.display = 'none';
             // Use the "pre check-in" text
             noInternetLink.textContent = noInternetLink.getAttribute('data-text-pre-checkin');
             // Update button label for pre-checkin phase
@@ -718,6 +754,11 @@ function initModeSelector() {
             // Hide price breakdown in unpaid phase
             if (paymentBreakdownPreCheckin) paymentBreakdownPreCheckin.style.display = 'none';
             if (paymentBreakdownDuringStay) paymentBreakdownDuringStay.style.display = 'none';
+            // Reset security hold badge to "Hold Success" in unpaid phase (if visible)
+            const securityHoldBadge = document.querySelector('.security-hold-badge');
+            if (securityHoldBadge) {
+                securityHoldBadge.textContent = 'Hold Success';
+            }
             // Hide invoice details button and disclaimer in unpaid phase
             if (invoiceDetailsBtn) invoiceDetailsBtn.style.display = 'none';
             if (invoiceDisclaimer) invoiceDisclaimer.style.display = 'none';
@@ -736,6 +777,11 @@ function initModeSelector() {
             }
             // Hide pre-checkin breakdown in during-stay phase
             if (paymentBreakdownPreCheckin) paymentBreakdownPreCheckin.style.display = 'none';
+            // Reset security hold badge to "Hold Success" in during-stay phase
+            const securityHoldBadge = document.querySelector('.security-hold-badge');
+            if (securityHoldBadge) {
+                securityHoldBadge.textContent = 'Hold Success';
+            }
             // Show invoice details button and disclaimer in during-stay phase
             if (invoiceDetailsBtn) invoiceDetailsBtn.style.display = 'block';
             if (invoiceDisclaimer) invoiceDisclaimer.style.display = 'block';
@@ -770,6 +816,11 @@ function initModeSelector() {
             }
             // Hide during-stay breakdown in pre-checkin phase
             if (paymentBreakdownDuringStay) paymentBreakdownDuringStay.style.display = 'none';
+            // Reset security hold badge to "Hold Success" in pre-checkin phase (if visible)
+            const securityHoldBadge = document.querySelector('.security-hold-badge');
+            if (securityHoldBadge) {
+                securityHoldBadge.textContent = 'Hold Success';
+            }
             // Allow Payment Details to be expandable in pre-checkin - let CSS handle the expansion
             if (paymentHeader) paymentHeader.setAttribute('aria-expanded', 'false');
             // Remove inline styles to let CSS handle accordion expansion
@@ -805,6 +856,11 @@ function initModeSelector() {
             }
             // Hide other price breakdowns
             if (paymentBreakdownPreCheckin) paymentBreakdownPreCheckin.style.display = 'none';
+            // Update security hold badge to "Released" in post-checkout phase
+            const securityHoldBadge = document.querySelector('.security-hold-badge');
+            if (securityHoldBadge) {
+                securityHoldBadge.textContent = 'Released';
+            }
             // Hide invoice details button and disclaimer in post-checkout phase
             if (invoiceDetailsBtn) invoiceDetailsBtn.style.display = 'none';
             if (invoiceDisclaimer) invoiceDisclaimer.style.display = 'none';
@@ -1407,6 +1463,66 @@ function initDiscountCode() {
     }
 }
 
+// Upgrade Discount Code Functionality
+function initUpgradeDiscountCode() {
+    // During Stay version
+    const upgradeDiscountHeader = document.getElementById('upgradeDiscountHeader');
+    const upgradeDiscountContent = document.getElementById('upgradeDiscountContent');
+    const upgradeCouponAddBtn = document.getElementById('upgradeCouponAddBtn');
+    const upgradeCouponInput = document.getElementById('upgradeCouponInput');
+    
+    // Pre-checkin version
+    const upgradeDiscountHeaderPreCheckin = document.getElementById('upgradeDiscountHeaderPreCheckin');
+    const upgradeDiscountContentPreCheckin = document.getElementById('upgradeDiscountContentPreCheckin');
+    const upgradeCouponAddBtnPreCheckin = document.getElementById('upgradeCouponAddBtnPreCheckin');
+    const upgradeCouponInputPreCheckin = document.getElementById('upgradeCouponInputPreCheckin');
+    
+    // Helper function to initialize discount code for a specific set of elements
+    function initDiscountCodeForElements(header, content, addBtn, input) {
+        if (!header || !content || !addBtn || !input) return;
+        
+        // Toggle discount code section
+        header.addEventListener('click', () => {
+            const isExpanded = header.getAttribute('aria-expanded') === 'true';
+            header.setAttribute('aria-expanded', !isExpanded);
+        });
+        
+        // Apply coupon code
+        addBtn.addEventListener('click', () => {
+            const couponCode = input.value.trim();
+            
+            if (!couponCode) {
+                alert('Please enter a coupon code');
+                return;
+            }
+            
+            // Simulate coupon validation (replace with actual API call)
+            if (couponCode.toLowerCase() === 'save10' || couponCode.toLowerCase() === 'test') {
+                // Disable input and button
+                input.disabled = true;
+                addBtn.disabled = true;
+                addBtn.textContent = 'Applied';
+                
+                // Show success message
+                alert(`Coupon "${couponCode}" applied successfully!`);
+            } else {
+                alert('Invalid coupon code. Please try again.');
+            }
+        });
+        
+        // Allow Enter key to submit
+        input.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                addBtn.click();
+            }
+        });
+    }
+    
+    // Initialize both versions
+    initDiscountCodeForElements(upgradeDiscountHeader, upgradeDiscountContent, upgradeCouponAddBtn, upgradeCouponInput);
+    initDiscountCodeForElements(upgradeDiscountHeaderPreCheckin, upgradeDiscountContentPreCheckin, upgradeCouponAddBtnPreCheckin, upgradeCouponInputPreCheckin);
+}
+
     // Payment Button Functionality
     function initPaymentButton() {
         const payNowBtn = document.getElementById('payNowBtn');
@@ -1610,6 +1726,121 @@ function initRequestInvoiceButton() {
     }
 }
 
+// WiFi Copy to Clipboard Functionality
+function initWiFiCopy() {
+    const wifiName = document.getElementById('wifiName');
+    const wifiPassword = document.getElementById('wifiPassword');
+    
+    function copyToClipboard(element, text) {
+        // Use the Clipboard API if available
+        if (navigator.clipboard && window.isSecureContext) {
+            navigator.clipboard.writeText(text).then(() => {
+                showCopyFeedback(element);
+            }).catch(err => {
+                console.error('Failed to copy:', err);
+                fallbackCopyToClipboard(text, element);
+            });
+        } else {
+            // Fallback for older browsers
+            fallbackCopyToClipboard(text, element);
+        }
+    }
+    
+    function fallbackCopyToClipboard(text, element) {
+        const textArea = document.createElement('textarea');
+        textArea.value = text;
+        textArea.style.position = 'fixed';
+        textArea.style.left = '-999999px';
+        textArea.style.top = '-999999px';
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        
+        try {
+            const successful = document.execCommand('copy');
+            if (successful) {
+                showCopyFeedback(element);
+            } else {
+                console.error('Fallback copy failed');
+            }
+        } catch (err) {
+            console.error('Fallback copy error:', err);
+        } finally {
+            document.body.removeChild(textArea);
+        }
+    }
+    
+    function showCopyFeedback(element) {
+        // Add copied class for visual feedback
+        element.classList.add('copied');
+        
+        // Change icon to checkmark temporarily
+        const copyIcon = element.querySelector('.copy-icon');
+        if (copyIcon) {
+            const originalHTML = copyIcon.innerHTML;
+            copyIcon.innerHTML = '<polyline points="20 6 9 17 4 12"/>';
+            copyIcon.setAttribute('viewBox', '0 0 24 24');
+            
+            // Reset after 2 seconds
+            setTimeout(() => {
+                element.classList.remove('copied');
+                copyIcon.innerHTML = originalHTML;
+                copyIcon.setAttribute('viewBox', '0 0 24 24');
+            }, 2000);
+        }
+    }
+    
+    function getTextToCopy(element) {
+        // First try to get from data attribute
+        const dataText = element.getAttribute('data-copy-text');
+        if (dataText) {
+            return dataText;
+        }
+        
+        // Otherwise, extract text content excluding the icon
+        const clone = element.cloneNode(true);
+        const icon = clone.querySelector('.copy-icon');
+        if (icon) {
+            icon.remove();
+        }
+        return clone.textContent.trim();
+    }
+    
+    // Add click handler for WiFi name
+    if (wifiName) {
+        wifiName.addEventListener('click', () => {
+            const textToCopy = getTextToCopy(wifiName);
+            copyToClipboard(wifiName, textToCopy);
+        });
+        
+        // Add keyboard support
+        wifiName.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                const textToCopy = getTextToCopy(wifiName);
+                copyToClipboard(wifiName, textToCopy);
+            }
+        });
+    }
+    
+    // Add click handler for WiFi password
+    if (wifiPassword) {
+        wifiPassword.addEventListener('click', () => {
+            const textToCopy = getTextToCopy(wifiPassword);
+            copyToClipboard(wifiPassword, textToCopy);
+        });
+        
+        // Add keyboard support
+        wifiPassword.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                const textToCopy = getTextToCopy(wifiPassword);
+                copyToClipboard(wifiPassword, textToCopy);
+            }
+        });
+    }
+}
+
 // Initialize on page load
 document.addEventListener('DOMContentLoaded', () => {
     initAccordion();
@@ -1619,12 +1850,14 @@ document.addEventListener('DOMContentLoaded', () => {
     initNoInternetModal();
     initUnlockConfirmationModal();
     initDiscountCode();
+    initUpgradeDiscountCode();
     initPaymentButton();
     initTroubleshootingGuide();
     initAccessTroubleModal();
     initSecurityHoldPopover();
     initInvoiceDetailsButton();
     initRequestInvoiceButton();
+    initWiFiCopy();
 });
 
 

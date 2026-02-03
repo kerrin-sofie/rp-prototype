@@ -930,6 +930,18 @@ body.mode-unpaid #thingsToKnowSection {
     color: #333;
 }
 
+/* Upgrade Your Stay Icon - Light grey rounded square background */
+#upgradeYourStaySection .accordion-icon {
+    width: 40px;
+    height: 40px;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #333;
+}
+
 .accordion-text {
     flex: 1;
 }
@@ -1455,6 +1467,12 @@ body.mode-during-stay #paymentDetailsSection.active #paymentBreakdownDuringStay 
     text-transform: none !important;
 }
 
+/* Security Hold Badge in Post-Checkout Phase */
+.mode-post-checkout .security-hold-badge {
+    background-color: #f5f5f5 !important;
+    color: var(--light-gray) !important;
+}
+
 /* Security Hold Popover */
 .security-hold-popover {
     position: fixed;
@@ -1577,7 +1595,117 @@ body.mode-during-stay #paymentDetailsSection.active #paymentBreakdownDuringStay 
 .info-section h4 {
     font-size: 16px;
     margin-bottom: 8px;
+    margin-top: 24px;
     color: #000;
+    font-weight: 600;
+}
+
+.info-section h4:first-child {
+    margin-top: 0;
+}
+
+.info-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border-gray);
+}
+
+.info-item:last-child {
+    border-bottom: none;
+}
+
+.info-item.wifi-item {
+    border-bottom: none;
+}
+
+.info-item-icon {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    color: #333;
+    margin-top: 2px;
+}
+
+.info-item-icon svg {
+    width: 100%;
+    height: 100%;
+}
+
+.info-item-content {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 4px;
+    flex-wrap: wrap;
+}
+
+.info-item-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+}
+
+.info-item-value {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.5;
+}
+
+.info-item-value.copyable {
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 8px;
+    margin: -4px -8px;
+    border-radius: 4px;
+    transition: background-color 0.2s, color 0.2s;
+    user-select: none;
+}
+
+.info-item-value.copyable:hover {
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+.info-item-value.copyable:active {
+    background-color: #e8e8e8;
+}
+
+.info-item-value.copyable .copy-icon {
+    opacity: 0.5;
+    transition: opacity 0.2s, transform 0.2s;
+    flex-shrink: 0;
+}
+
+.info-item-value.copyable:hover .copy-icon {
+    opacity: 1;
+}
+
+.info-item-value.copyable.copied {
+    color: var(--navy);
+}
+
+.info-item-value.copyable.copied .copy-icon {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+.wifi-troubleshooting-link {
+    display: block;
+    color: var(--navy);
+    text-decoration: underline;
+    font-size: 14px;
+    margin-top: 8px;
+    text-align: center;
+    transition: color 0.2s;
+}
+
+.wifi-troubleshooting-link:hover {
+    color: #1e3a5f;
 }
 
 /* Footer */
@@ -2567,5 +2695,270 @@ body.mode-during-stay #paymentDetailsSection.active #paymentBreakdownDuringStay 
         transform: translateY(0) scale(1);
         opacity: 1;
     }
+}
+
+/* Upgrade Your Stay Section */
+.upgrade-services-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.upgrade-service-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 0;
+}
+
+.service-icon {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    color: #333;
+    margin-top: 2px;
+}
+
+.service-icon svg {
+    width: 100%;
+    height: 100%;
+}
+
+.service-content {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.service-header {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.service-title {
+    font-size: 15px;
+    font-weight: 500;
+    color: #333;
+    line-height: 1.4;
+}
+
+.service-info-icon {
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: transparent;
+    border: none;
+    color: #333;
+    padding: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.2s;
+}
+
+.service-info-icon:hover {
+    opacity: 0.7;
+}
+
+.service-info-icon svg {
+    width: 100%;
+    height: 100%;
+}
+
+.service-price {
+    font-size: 14px;
+    color: #333;
+    font-weight: 400;
+}
+
+.service-status {
+    font-size: 14px;
+    color: #999;
+    font-weight: 400;
+}
+
+.service-add-btn {
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: #f5f5f5;
+    border: none;
+    color: #333;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s, transform 0.2s;
+    padding: 0;
+}
+
+.service-add-btn:hover {
+    background-color: #e8e8e8;
+    transform: scale(1.05);
+}
+
+.service-add-btn:active {
+    transform: scale(0.95);
+}
+
+.service-add-btn svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* Unavailable services */
+.upgrade-service-item.unavailable .service-add-btn {
+    display: none;
+}
+
+.upgrade-service-item.unavailable .service-icon {
+    opacity: 0.5;
+}
+
+.upgrade-service-item.unavailable .service-title {
+    opacity: 0.7;
+}
+
+/* Parking Disclaimer */
+.upgrade-parking-disclaimer {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 12px 16px;
+    background-color: #f9f9f9;
+    border-left: 3px solid var(--navy);
+    border-radius: 6px;
+}
+
+.upgrade-parking-disclaimer p {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* Upgrade Discount Code Section */
+.upgrade-discount-section {
+    margin-top: 24px;
+    margin-bottom: 24px;
+    border-top: 1px solid var(--border-gray);
+    padding-top: 16px;
+}
+
+.upgrade-discount-header {
+    width: 100%;
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    transition: opacity 0.2s;
+    font-size: 14px;
+    font-weight: 400;
+    color: #333;
+    text-align: left;
+}
+
+.upgrade-discount-header:hover {
+    opacity: 0.7;
+}
+
+.upgrade-discount-chevron {
+    transition: transform 0.3s ease;
+    color: var(--gray);
+    flex-shrink: 0;
+}
+
+.upgrade-discount-header[aria-expanded="true"] .upgrade-discount-chevron {
+    transform: rotate(180deg);
+}
+
+.upgrade-discount-content {
+    display: none;
+    padding-top: 16px;
+}
+
+.upgrade-discount-header[aria-expanded="true"] ~ .upgrade-discount-content {
+    display: block;
+}
+
+.upgrade-discount-input-group {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.upgrade-coupon-input {
+    flex: 1;
+    padding: 12px 16px;
+    border: 1px solid var(--border-gray);
+    border-radius: 8px;
+    font-size: 15px;
+    transition: border-color 0.2s;
+}
+
+.upgrade-coupon-input:focus {
+    outline: none;
+    border-color: var(--navy);
+}
+
+.upgrade-coupon-add-btn {
+    padding: 12px 24px;
+    background-color: #666;
+    color: var(--white);
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    white-space: nowrap;
+}
+
+.upgrade-coupon-add-btn:hover:not(:disabled) {
+    background-color: #555;
+}
+
+.upgrade-coupon-add-btn:disabled {
+    background-color: #22c55e;
+    cursor: not-allowed;
+}
+
+/* Upgrade Book Now Button */
+.upgrade-book-now-btn {
+    width: 100%;
+    background-color: #e5e5e5;
+    color: #999;
+    border: none;
+    padding: 16px 24px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: not-allowed;
+    transition: background-color 0.2s, color 0.2s;
+    margin-top: 8px;
+}
+
+.upgrade-book-now-btn:not(:disabled) {
+    background-color: var(--navy);
+    color: var(--white);
+    cursor: pointer;
+}
+
+.upgrade-book-now-btn:not(:disabled):hover {
+    background-color: #0d122f;
+    transform: translateY(-1px);
+}
+
+.upgrade-book-now-btn:not(:disabled):active {
+    transform: translateY(0);
 }
 
