@@ -65,32 +65,69 @@ function initAccordion() {
                 
                 if (currentMode === 'during-stay') {
                     const paymentBreakdown = document.getElementById('paymentBreakdownDuringStay');
+                    const securityHoldSection = document.getElementById('securityHoldSectionDuringStay');
+                    const overviewHeading = document.getElementById('overviewHeadingDuringStay');
+                    const securityHoldHeading = document.getElementById('securityHoldHeading');
+                    const securityHoldDescription = document.getElementById('securityHoldDescription');
+                    const invoiceHeading = document.getElementById('invoiceHeading');
                     if (paymentBreakdown) {
                         // Show payment breakdown when section is expanded in during-stay phase
                         paymentBreakdown.style.display = isExpanded ? 'block' : 'none';
+                    }
+                    if (overviewHeading) {
+                        overviewHeading.style.display = isExpanded ? 'block' : 'none';
+                    }
+                    if (securityHoldSection) {
+                        // Show security hold section when section is expanded in during-stay phase
+                        securityHoldSection.style.display = isExpanded ? 'block' : 'none';
+                    }
+                    if (securityHoldHeading) {
+                        securityHoldHeading.style.display = isExpanded ? 'block' : 'none';
+                    }
+                    if (securityHoldDescription) {
+                        securityHoldDescription.style.display = isExpanded ? 'block' : 'none';
                     }
                     // Invoice button and disclaimer should always be visible in during-stay phase when expanded
                     if (isExpanded) {
                         if (invoiceDetailsBtn) {
                             invoiceDetailsBtn.style.display = 'block';
                         }
+                        if (invoiceHeading) {
+                            invoiceHeading.style.display = 'block';
+                        }
                         if (invoiceDisclaimer) {
                             invoiceDisclaimer.style.display = 'block';
+                        }
+                    } else {
+                        if (invoiceHeading) {
+                            invoiceHeading.style.display = 'none';
                         }
                     }
                 } else if (currentMode === 'pre-checkin') {
                     const paymentBreakdown = document.getElementById('paymentBreakdownPreCheckin');
+                    const overviewHeading = document.getElementById('overviewHeadingPreCheckin');
+                    const invoiceHeading = document.getElementById('invoiceHeading');
                     if (paymentBreakdown) {
                         // Show payment breakdown when section is expanded in pre-checkin phase
                         paymentBreakdown.style.display = isExpanded ? 'block' : 'none';
+                    }
+                    if (overviewHeading) {
+                        overviewHeading.style.display = isExpanded ? 'block' : 'none';
                     }
                     // Invoice button and disclaimer should always be visible in pre-checkin phase when expanded
                     if (isExpanded) {
                         if (invoiceDetailsBtn) {
                             invoiceDetailsBtn.style.display = 'block';
                         }
+                        if (invoiceHeading) {
+                            invoiceHeading.style.display = 'block';
+                        }
                         if (invoiceDisclaimer) {
                             invoiceDisclaimer.style.display = 'block';
+                        }
+                    } else {
+                        if (invoiceHeading) {
+                            invoiceHeading.style.display = 'none';
                         }
                     }
                 } else if (currentMode === 'post-checkout') {
@@ -752,6 +789,20 @@ function initModeSelector() {
             // Hide price breakdown in unpaid phase
             if (paymentBreakdownPreCheckin) paymentBreakdownPreCheckin.style.display = 'none';
             if (paymentBreakdownDuringStay) paymentBreakdownDuringStay.style.display = 'none';
+            // Hide headlines in unpaid phase
+            const overviewHeadingPreCheckin = document.getElementById('overviewHeadingPreCheckin');
+            const overviewHeadingDuringStay = document.getElementById('overviewHeadingDuringStay');
+            const securityHoldHeading = document.getElementById('securityHoldHeading');
+            const securityHoldDescription = document.getElementById('securityHoldDescription');
+            const invoiceHeading = document.getElementById('invoiceHeading');
+            if (overviewHeadingPreCheckin) overviewHeadingPreCheckin.style.display = 'none';
+            if (overviewHeadingDuringStay) overviewHeadingDuringStay.style.display = 'none';
+            if (securityHoldHeading) securityHoldHeading.style.display = 'none';
+            if (securityHoldDescription) securityHoldDescription.style.display = 'none';
+            if (invoiceHeading) invoiceHeading.style.display = 'none';
+            // Hide security hold section in unpaid phase
+            const securityHoldSection = document.getElementById('securityHoldSectionDuringStay');
+            if (securityHoldSection) securityHoldSection.style.display = 'none';
             // Reset security hold badge to "Hold Success" in unpaid phase (if visible)
             const securityHoldBadge = document.querySelector('.security-hold-badge');
             if (securityHoldBadge) {
@@ -769,8 +820,29 @@ function initModeSelector() {
             if (paymentBreakdownDuringStay) {
                 paymentBreakdownDuringStay.style.display = isExpanded ? 'block' : 'none';
             }
-            // Hide pre-checkin breakdown in during-stay phase
+            // Show/hide headlines in during-stay phase when section is expanded
+            const overviewHeadingDuringStay = document.getElementById('overviewHeadingDuringStay');
+            const securityHoldHeading = document.getElementById('securityHoldHeading');
+            const securityHoldDescription = document.getElementById('securityHoldDescription');
+            const invoiceHeading = document.getElementById('invoiceHeading');
+            if (overviewHeadingDuringStay) {
+                overviewHeadingDuringStay.style.display = isExpanded ? 'block' : 'none';
+            }
+            // Show security hold section in during-stay phase when section is expanded
+            const securityHoldSection = document.getElementById('securityHoldSectionDuringStay');
+            if (securityHoldSection) {
+                securityHoldSection.style.display = isExpanded ? 'block' : 'none';
+            }
+            if (securityHoldHeading) {
+                securityHoldHeading.style.display = isExpanded ? 'block' : 'none';
+            }
+            if (securityHoldDescription) {
+                securityHoldDescription.style.display = isExpanded ? 'block' : 'none';
+            }
+            // Hide pre-checkin breakdown and its headline in during-stay phase
             if (paymentBreakdownPreCheckin) paymentBreakdownPreCheckin.style.display = 'none';
+            const overviewHeadingPreCheckin = document.getElementById('overviewHeadingPreCheckin');
+            if (overviewHeadingPreCheckin) overviewHeadingPreCheckin.style.display = 'none';
             // Reset security hold badge to "Hold Success" in during-stay phase
             const securityHoldBadge = document.querySelector('.security-hold-badge');
             if (securityHoldBadge) {
@@ -778,6 +850,9 @@ function initModeSelector() {
             }
             // Show invoice details button and disclaimer in during-stay phase only when expanded
             if (invoiceDetailsBtn) invoiceDetailsBtn.style.display = isExpanded ? 'block' : 'none';
+            if (invoiceHeading) {
+                invoiceHeading.style.display = isExpanded ? 'block' : 'none';
+            }
             if (invoiceDisclaimer) invoiceDisclaimer.style.display = isExpanded ? 'block' : 'none';
             // Hide request invoice button and disclaimer in during-stay phase
             if (requestInvoiceBtn) requestInvoiceBtn.style.display = 'none';
@@ -804,8 +879,26 @@ function initModeSelector() {
             if (paymentBreakdownPreCheckin) {
                 paymentBreakdownPreCheckin.style.display = isExpanded ? 'block' : 'none';
             }
-            // Hide during-stay breakdown in pre-checkin phase
+            // Show/hide headlines in pre-checkin phase when section is expanded
+            const overviewHeadingPreCheckin = document.getElementById('overviewHeadingPreCheckin');
+            const invoiceHeading = document.getElementById('invoiceHeading');
+            if (overviewHeadingPreCheckin) {
+                overviewHeadingPreCheckin.style.display = isExpanded ? 'block' : 'none';
+            }
+            if (invoiceHeading) {
+                invoiceHeading.style.display = isExpanded ? 'block' : 'none';
+            }
+            // Hide during-stay breakdown and its headline in pre-checkin phase
             if (paymentBreakdownDuringStay) paymentBreakdownDuringStay.style.display = 'none';
+            const overviewHeadingDuringStay = document.getElementById('overviewHeadingDuringStay');
+            if (overviewHeadingDuringStay) overviewHeadingDuringStay.style.display = 'none';
+            // Hide security hold section and its headline in pre-checkin phase
+            const securityHoldSection = document.getElementById('securityHoldSectionDuringStay');
+            const securityHoldHeading = document.getElementById('securityHoldHeading');
+            const securityHoldDescription = document.getElementById('securityHoldDescription');
+            if (securityHoldSection) securityHoldSection.style.display = 'none';
+            if (securityHoldHeading) securityHoldHeading.style.display = 'none';
+            if (securityHoldDescription) securityHoldDescription.style.display = 'none';
             // Reset security hold badge to "Hold Success" in pre-checkin phase (if visible)
             const securityHoldBadge = document.querySelector('.security-hold-badge');
             if (securityHoldBadge) {
@@ -846,7 +939,21 @@ function initModeSelector() {
             }
             // Hide other price breakdowns
             if (paymentBreakdownPreCheckin) paymentBreakdownPreCheckin.style.display = 'none';
-            // Update security hold badge to "Released" in post-checkout phase
+            // Show/hide headlines in post-checkout phase
+            const overviewHeadingPreCheckin = document.getElementById('overviewHeadingPreCheckin');
+            const overviewHeadingDuringStay = document.getElementById('overviewHeadingDuringStay');
+            const securityHoldHeading = document.getElementById('securityHoldHeading');
+            const securityHoldDescription = document.getElementById('securityHoldDescription');
+            const invoiceHeading = document.getElementById('invoiceHeading');
+            if (overviewHeadingPreCheckin) overviewHeadingPreCheckin.style.display = 'none';
+            if (overviewHeadingDuringStay) overviewHeadingDuringStay.style.display = 'block';
+            if (securityHoldHeading) securityHoldHeading.style.display = 'none';
+            if (securityHoldDescription) securityHoldDescription.style.display = 'none';
+            if (invoiceHeading) invoiceHeading.style.display = 'none';
+            // Hide security hold section in post-checkout phase
+            const securityHoldSection = document.getElementById('securityHoldSectionDuringStay');
+            if (securityHoldSection) securityHoldSection.style.display = 'none';
+            // Update security hold badge to "Released" in post-checkout phase (if visible elsewhere)
             const securityHoldBadge = document.querySelector('.security-hold-badge');
             if (securityHoldBadge) {
                 securityHoldBadge.textContent = 'Released';
@@ -1630,54 +1737,7 @@ function initAccessTroubleModal() {
     }
 }
 
-// Security Hold Popover Functionality
-function initSecurityHoldPopover() {
-    const infoIcon = document.getElementById('securityHoldInfoIcon');
-    const popover = document.getElementById('securityHoldPopover');
-    
-    if (!infoIcon || !popover) return;
-    
-    // Toggle popover on icon click
-    infoIcon.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const isVisible = popover.classList.contains('visible');
-        
-        if (isVisible) {
-            popover.classList.remove('visible');
-        } else {
-            // Calculate position relative to icon
-            const iconRect = infoIcon.getBoundingClientRect();
-            const popoverWidth = 280; // min-width
-            const spacing = 12; // space between icon and popover
-            
-            // Position above the icon
-            const topPosition = iconRect.top - (popover.offsetHeight || 120) - spacing;
-            
-            // Center horizontally relative to icon, but keep within viewport
-            let leftPosition = iconRect.left - (popoverWidth / 2) + (iconRect.width / 2);
-            leftPosition = Math.max(20, Math.min(leftPosition, window.innerWidth - popoverWidth - 20));
-            
-            popover.style.top = `${Math.max(20, topPosition)}px`;
-            popover.style.left = `${leftPosition}px`;
-            
-            popover.classList.add('visible');
-        }
-    });
-    
-    // Close popover when clicking outside
-    document.addEventListener('click', (e) => {
-        if (!infoIcon.contains(e.target) && !popover.contains(e.target)) {
-            popover.classList.remove('visible');
-        }
-    });
-    
-    // Close popover on Escape key
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && popover.classList.contains('visible')) {
-            popover.classList.remove('visible');
-        }
-    });
-}
+// Security Hold Popover Functionality - Removed (no longer using popover)
 
 // Invoice Details Button Functionality
 function initInvoiceDetailsButton() {
@@ -1797,22 +1857,6 @@ function initWiFiCopy() {
     }
     
     // Add click handler for WiFi name
-    if (wifiName) {
-        wifiName.addEventListener('click', () => {
-            const textToCopy = getTextToCopy(wifiName);
-            copyToClipboard(wifiName, textToCopy);
-        });
-        
-        // Add keyboard support
-        wifiName.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                const textToCopy = getTextToCopy(wifiName);
-                copyToClipboard(wifiName, textToCopy);
-            }
-        });
-    }
-    
     // Add click handler for WiFi password
     if (wifiPassword) {
         wifiPassword.addEventListener('click', () => {
@@ -1844,7 +1888,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initPaymentButton();
     initTroubleshootingGuide();
     initAccessTroubleModal();
-    initSecurityHoldPopover();
+    // initSecurityHoldPopover(); // Removed - no longer using popover
     initInvoiceDetailsButton();
     initRequestInvoiceButton();
     initWiFiCopy();

@@ -93,7 +93,7 @@
                     
                     <!-- Unpaid Reservation Alert (shown only in unpaid phase) -->
                     <div class="unpaid-reservation-alert" id="unpaidReservationAlert" style="display: none;">
-                        <p class="unpaid-alert-description">Your payment on booking.com was unsuccessful. Booking.com may not have shown you this error. If you want to verify please check with your payment provider.</p>
+                        <p class="unpaid-alert-description">Your payment on booking.com was unsuccessful. Booking.com may not have shown you this error. For verification, please check with your payment provider.</p>
                         
                         <!-- Payment Error Reason -->
                         <div class="payment-error-reason" id="paymentErrorReason">
@@ -101,7 +101,7 @@
                             <span class="payment-error-text" id="paymentErrorText">Card declined due to insufficient funds</span>
                         </div>
                         
-                        <p class="unpaid-alert-warning"><strong>Important:</strong> Complete payment below to secure your reservation, or it will be cancelled.</p>
+                        <p class="unpaid-alert-warning"><strong>Important:</strong> Complete payment below to secure your reservation, or it will be cancelled in 24-48 hours.</p>
                         
                         <button class="pay-now-btn" id="payNowBtn">
                             Pay <span id="outstandingAmount">83€</span> now
@@ -130,6 +130,7 @@
                     </div>
                     
                     <!-- Price Breakdown (shown only in pre-checkin phase) -->
+                    <h4 class="payment-section-heading" id="overviewHeadingPreCheckin" style="display: none;">Overview</h4>
                     <div class="payment-breakdown" id="paymentBreakdownPreCheckin" style="display: none;" data-phase="pre-checkin">
                         <div class="payment-row">
                             <span>7 nights</span>
@@ -139,7 +140,7 @@
                             <span>Cleaning fee</span>
                             <span>€35.00</span>
                         </div>
-                        <div class="payment-row">
+                        <div class="payment-row service-fee-row">
                             <span>Service fee</span>
                             <span>€52.50</span>
                         </div>
@@ -150,6 +151,7 @@
                     </div>
                     
                     <!-- Price Breakdown (shown only in during-stay phase) -->
+                    <h4 class="payment-section-heading" id="overviewHeadingDuringStay" style="display: none;">Overview</h4>
                     <div class="payment-breakdown" id="paymentBreakdownDuringStay" style="display: none;" data-phase="during-stay">
                         <div class="payment-row">
                             <span>7 nights</span>
@@ -159,31 +161,9 @@
                             <span>Cleaning fee</span>
                             <span>€35.00</span>
                         </div>
-                        <div class="payment-row">
+                        <div class="payment-row service-fee-row">
                             <span>Service fee</span>
                             <span>€52.50</span>
-                        </div>
-                        <div class="payment-row security-hold-row">
-                            <div class="security-hold-left">
-                                <span>Security Hold:</span>
-                                <button class="security-hold-info-icon" id="securityHoldInfoIcon" aria-label="Security Hold information">
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                        <circle cx="12" cy="12" r="10"/>
-                                        <line x1="12" y1="16" x2="12" y2="12"/>
-                                        <circle cx="12" cy="8" r="1.5" fill="currentColor"/>
-                                    </svg>
-                                </button>
-                                <span class="security-hold-badge">Hold Success</span>
-                            </div>
-                            <span>€250.00</span>
-                        </div>
-                        <!-- Security Hold Popover -->
-                        <div class="security-hold-popover" id="securityHoldPopover">
-                            <div class="popover-content">
-                                <h4 class="popover-title">Security Hold</h4>
-                                <p class="popover-text">This is a temporary hold, not a charge. We'll release it after checkout. Most banks complete release in 2–7 business days.</p>
-                            </div>
-                            <div class="popover-arrow"></div>
                         </div>
                         <div class="payment-row total">
                             <span>Total</span>
@@ -191,7 +171,20 @@
                         </div>
                     </div>
                     
+                    <!-- Security Hold (shown only in during-stay phase) -->
+                    <h4 class="payment-section-heading" id="securityHoldHeading" style="display: none;">Security Hold</h4>
+                    <p class="security-hold-description" id="securityHoldDescription" style="display: none;">This is a temporary hold, not a charge. We'll release it after checkout. Most banks complete release in 2–7 business days.</p>
+                    <div class="security-hold-section" id="securityHoldSectionDuringStay" style="display: none;" data-phase="during-stay">
+                        <div class="security-hold-container">
+                            <div class="security-hold-left">
+                                <span class="security-hold-badge">Hold Success</span>
+                            </div>
+                            <span class="security-hold-amount">€250.00</span>
+                        </div>
+                    </div>
+                    
                     <!-- Invoice Details Button (shown in pre-checkin and during-stay phases) -->
+                    <h4 class="payment-section-heading" id="invoiceHeading" style="display: none;">Invoice</h4>
                     <button class="invoice-details-btn" id="invoiceDetailsBtn" style="display: none;">
                         Check Invoice Details
                     </button>
@@ -517,7 +510,7 @@
 
                     <!-- Parking Disclaimer (Pre-checkin) -->
                     <div class="upgrade-parking-disclaimer" id="upgradeParkingDisclaimerPreCheckin" data-phase="pre-checkin" style="display: none;">
-                        <p>Parking is available upon request. Please reach out to our team via message to arrange parking for your stay.</p>
+                        <p>Paid Parking is available upon request. Please reach out to our team via message to arrange parking for your stay.</p>
                     </div>
 
                     <!-- Apply Discount Code Section (Pre-checkin) -->
@@ -689,7 +682,7 @@
 
                     <!-- Parking Disclaimer (During Stay) -->
                     <div class="upgrade-parking-disclaimer" id="upgradeParkingDisclaimer" data-phase="during-stay">
-                        <p>Parking is available upon request. Please reach out to our team via message to arrange parking for your stay.</p>
+                        <p>Paid Parking is available upon request. Please reach out to our team via message to arrange parking for your stay.</p>
                     </div>
 
                     <!-- Apply Discount Code Section (During Stay) -->
@@ -753,13 +746,7 @@
                             </div>
                             <div class="info-item-content">
                                 <span class="info-item-label">WiFi name:</span>
-                                <span class="info-item-value copyable" id="wifiName" data-copy-text="RandomTest" role="button" tabindex="0" aria-label="Click to copy WiFi name">
-                                    RandomTest
-                                    <svg class="copy-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
-                                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
-                                    </svg>
-                                </span>
+                                <span class="info-item-value" id="wifiName">RandomTest</span>
                             </div>
                         </div>
                         <div class="info-item wifi-item">
@@ -785,7 +772,7 @@
                         </a>
 
                         <!-- Checking in and out -->
-                        <h4>Checking in and out</h4>
+                        <h4>Arrival & Departure</h4>
                         <div class="info-item">
                             <div class="info-item-icon">
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -796,7 +783,7 @@
                                 </svg>
                             </div>
                             <div class="info-item-content">
-                                <span class="info-item-label">Check-in at:</span>
+                                <span class="info-item-label">Arrival at:</span>
                                 <span class="info-item-value">3pm</span>
                             </div>
                         </div>
@@ -810,24 +797,10 @@
                                 </svg>
                             </div>
                             <div class="info-item-content">
-                                <span class="info-item-label">Checkout at:</span>
+                                <span class="info-item-label">Departure at:</span>
                                 <span class="info-item-value">10am</span>
                             </div>
                         </div>
-                        <div class="info-item">
-                            <div class="info-item-icon">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <rect x="2" y="3" width="20" height="18" rx="2" ry="2"/>
-                                    <line x1="8" y1="21" x2="16" y2="21"/>
-                                    <line x1="12" y1="17" x2="12" y2="21"/>
-                                </svg>
-                            </div>
-                            <div class="info-item-content">
-                                <span class="info-item-label">Self check-in with:</span>
-                                <span class="info-item-value">Nuki Door Opener</span>
-                            </div>
-                        </div>
-
                         <!-- During your stay -->
                         <h4>During your stay</h4>
                         <div class="info-item">
@@ -1008,18 +981,18 @@
 
             <!-- Step 1: Check-in & Check-out -->
             <div class="modal-step" id="modalStep1">
-                <h2 class="modal-title">Check-in & Check-out</h2>
+                <h2 class="modal-title">Arrival & Departure Times</h2>
                 <p class="modal-description">
                     We kindly ask for your estimated arrival and departure times to help us coordinate with our cleaning staff. This step is mandatory in order to access your check-in information. You can easily update this information on the reservation page in the reservation details section if your plans change.
                 </p>
 
                 <div class="time-selector-section">
                     <div class="time-selector-group">
-                        <label class="time-label">Check-in</label>
-                        <p class="time-hint">Check-in is available from 3pm</p>
+                        <label class="time-label">Arrival</label>
+                        <p class="time-hint">Arrival is available from 3pm</p>
                         <div class="time-dropdown-wrapper">
                             <button class="time-dropdown-btn" id="checkinDropdownBtn" aria-label="Select check-in time">
-                                <span class="time-dropdown-placeholder">Check-in</span>
+                                <span class="time-dropdown-placeholder">Arrival Time</span>
                                 <svg class="time-dropdown-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                     <polyline points="6 9 12 15 18 9"/>
                                 </svg>
@@ -1039,11 +1012,11 @@
                     </div>
 
                     <div class="time-selector-group">
-                        <label class="time-label">Check-out</label>
-                        <p class="time-hint">Check-out is latest at 10am</p>
+                        <label class="time-label">Departure</label>
+                        <p class="time-hint">Departure is latest at 10am</p>
                         <div class="time-dropdown-wrapper">
                             <button class="time-dropdown-btn" id="checkoutDropdownBtn" aria-label="Select check-out time">
-                                <span class="time-dropdown-placeholder">Check-out</span>
+                                <span class="time-dropdown-placeholder">Departure Time</span>
                                 <svg class="time-dropdown-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                     <polyline points="6 9 12 15 18 9"/>
                                 </svg>
